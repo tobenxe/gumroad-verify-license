@@ -17,10 +17,10 @@ module.exports = async (req, res) =>{
                             });
         
         if(response.data.success){
-            //Check if refunded or chargedback
-            return (!response.data.purchase.refunded && !response.data.purchase.chargebacked) ?  
-            res.status(200).json({isValid: true}) : 
-            res.status(200).json({isValid: false})
+            //Check if refunded or chargedback            
+            if(!response.data.purchase.refunded && !response.data.purchase.chargebacked){
+             return  res.status(200).json({isValid: true})
+            }
         }
         return res.status(200).json({isValid: false});
     }catch(err){
